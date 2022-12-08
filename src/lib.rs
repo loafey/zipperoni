@@ -1,6 +1,14 @@
 pub struct Zipper<'l, T> {
-    inner: &'l Vec<T>,
+    inner: &'l [T],
     index: usize,
+}
+impl<'l, T> From<&'l [T]> for Zipper<'l, T> {
+    fn from(value: &'l [T]) -> Self {
+        Self {
+            inner: value,
+            index: 0,
+        }
+    }
 }
 impl<'l, T> From<&'l Vec<T>> for Zipper<'l, T> {
     fn from(value: &'l Vec<T>) -> Self {
@@ -23,12 +31,21 @@ impl<'l, T> Iterator for Zipper<'l, T> {
 }
 
 pub struct Zipper2D<'l, T> {
-    inner: &'l Vec<Vec<T>>,
+    inner: &'l [Vec<T>],
     index_x: usize,
     index_y: usize,
 }
 impl<'l, T> From<&'l Vec<Vec<T>>> for Zipper2D<'l, T> {
     fn from(value: &'l Vec<Vec<T>>) -> Self {
+        Self {
+            inner: value,
+            index_x: 0,
+            index_y: 0,
+        }
+    }
+}
+impl<'l, T> From<&'l [Vec<T>]> for Zipper2D<'l, T> {
+    fn from(value: &'l [Vec<T>]) -> Self {
         Self {
             inner: value,
             index_x: 0,
